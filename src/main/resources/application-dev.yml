@@ -1,0 +1,13 @@
+# Development-specific settings
+spring:
+  datasource:
+    url: jdbc:h2:mem:iremodelapi_dev
+
+  jpa:
+    show-sql: true
+
+  # Detailed logging for development
+  logging:
+    level:
+      com.iremodelapi: DEBUG
+      org.springframework.security: DEBUG

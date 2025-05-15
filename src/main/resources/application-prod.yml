@@ -1,0 +1,26 @@
+# Production-specific settings
+spring:
+  # Use a persistent database in production
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: validate  # Use migrations in production, not auto-updates
+
+  # Disable H2 console in production
+  h2:
+    console:
+      enabled: false
+
+# Production logging configuration
+logging:
+  level:
+    root: ERROR
+    com.iremodelapi: INFO
+    org.springframework: WARN
