@@ -1,16 +1,41 @@
-
 spring:
+  # Development database (H2)
   datasource:
     url: jdbc:h2:mem:iremodelapi
     username: sa
     password: password
     driver-class-name: org.h2.Driver
+
   h2:
     console:
       enabled: true
       path: /h2-console
+      settings:
+        web-allow-others: false
 
-# JWT Configuration - dev only - NEVER use these values in production
+  # Development JPA settings
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# Enhanced logging for development
+logging:
+  level:
+    root: INFO
+    org.tysonsproj.iremodelapi: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Development error configuration
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+
+# JWT Configuration for development
 jwt:
   secret: ${JWT_SECRET:dev_only_secret_key_replace_in_production_minimum_32_chars}
   expiration: ${JWT_EXPIRATION:86400000}

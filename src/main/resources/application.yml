@@ -2,38 +2,27 @@ spring:
   application:
     name: iremodelapi
 
-  # H2 Database Configuration
-  datasource:
-    url: jdbc:h2:mem:iremodelapi
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:password}
-    driverClassName: org.h2.Driver
-
-  # JPA Configuration
+  # Common JPA settings across environments
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
 
-  # H2 Console Configuration
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: false
-
-# Server Configuration (moved outside of spring namespace)
+# Server Configuration
 server:
   port: ${SERVER_PORT:8080}
   servlet:
     context-path: /api
+  error:
+    include-stacktrace: never
 
-# JWT Configuration (moved outside of spring namespace)
+# JWT Configuration
 jwt:
-  secret: ${JWT_SECRET:placeholder_replace_in_production} # IMPORTANT: Override in production!
+  secret: ${JWT_SECRET:placeholder_replace_in_production} # Override in production!
   expiration: ${JWT_EXPIRATION:86400000}  # 24 hours in milliseconds
+
+# Common logging settings
+logging:
+  level:
+    org.springframework: INFO
