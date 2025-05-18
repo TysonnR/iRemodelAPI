@@ -27,13 +27,13 @@ spring:
       settings:
         web-allow-others: false
 
-  # Server Configuration
-  server:
-    port: ${SERVER_PORT:8080}
-    servlet:
-      context-path: /api
+# Server Configuration (moved outside of spring namespace)
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api
 
-  # JWT Configuration
-  jwt:
-    secret: ${JWT_SECRET:placeholder_replace_in_production} # IMPORTANT: Override in production!
-    expiration: ${JWT_EXPIRATION:86400000}  # 24 hours in milliseconds
+# JWT Configuration (moved outside of spring namespace)
+jwt:
+  secret: ${JWT_SECRET:placeholder_replace_in_production} # IMPORTANT: Override in production!
+  expiration: ${JWT_EXPIRATION:86400000}  # 24 hours in milliseconds
