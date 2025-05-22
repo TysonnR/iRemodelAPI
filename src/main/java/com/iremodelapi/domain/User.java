@@ -1,8 +1,10 @@
 package com.iremodelapi.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 import jakarta.persistence.*;
+import java.util.List;
 
 // Annotations to mark this class as a JPA entity, specify the table name, and define inheritance strategy
 @Entity
@@ -41,17 +43,6 @@ public class User
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
-    // Relationship to Messages / all users can send & receive messages
-    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
-    private List<Message> sentMessages = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recipient", fetch = FetchType.LAZY)
-    private List<Message> receivedMessages = new ArrayList<>();
-
-    // Relationship to Notifications / all users can receive notifications
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Notification> notifications = new ArrayList<>();
 
     public User()
     {
@@ -145,49 +136,6 @@ public class User
     public void setUpdatedAt(LocalDateTime updatedAt)
     {
         this.updatedAt = updatedAt;
-    }
-
-    public List<Message> getSentMessages()
-    {
-        return sentMessages;
-    }
-
-    public void setSentMessages(List<Message> sentMessages)
-    {
-        this.sentMessages = sentMessages;
-    }
-
-    public List<Message> getReceivedMessages()
-    {
-        return receivedMessages;
-    }
-
-    public void setReceivedMessages(List<Message> receivedMessages)
-    {
-        this.receivedMessages = receivedMessages;
-    }
-
-    public List<Notification> getNotifications()
-    {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications)
-    {
-        this.notifications = notifications;
-    }
-
-    // Helper methods for relationship management
-    public void addNotification(Notification notification)
-    {
-        notifications.add(notification);
-        notification.setUser(this);
-    }
-
-    public void removeNotification(Notification notification)
-    {
-        notifications.remove(notification);
-        notification.setUser(null);
     }
 
     // Lifecycle callbacks to set createdAt and updatedAt timestamps
