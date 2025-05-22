@@ -3,10 +3,8 @@ package com.iremodelapi.domain;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
+
+import java.util.*;
 
 @Entity
 @Table(name= "contractors")
@@ -271,6 +269,31 @@ public class Contractor extends User
         }
     }
 
+    public void updateRatingFromReviews()
+    {
+        if (reviews.isEmpty()) {
+            this.rating = null;
+            return;
+        }
+
+        double averageRating = reviews.stream().mapToInt(Review::getRating).average().orElse(0.0);
+    }
+
+    public boolean servicesArea(String zipCode)
+    {
+        return serviceAreas.contains(zipCode);
+    }
+
+    public boolean hasSpecialty(Specialty specialty)
+    {
+        return specialties.contains(specialty);
+    }
+
+    public Specialty getPrimarySpecialty()
+    {
+        return specialties.isEmpty() ? null : specialties.iterator().next();
+    }
+
     @Override
     public String toString()
     {
@@ -288,4 +311,20 @@ public class Contractor extends User
                 ", reviews=" + (reviews != null ? reviews.size() : 0) +
                 "} " + super.toString();
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof Contractor contractor)) return false;
+
+        return Objects.equals(getEmail(), contractor.getEmail());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getEmail());
+    }
+
 }

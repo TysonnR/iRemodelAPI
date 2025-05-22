@@ -1,10 +1,8 @@
 package com.iremodelapi.domain;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 @Entity
 @Table(name = "homeowners")
@@ -150,4 +148,20 @@ public class Homeowner extends User
                 ", writtenReviews=" + (writtenReviews != null ? writtenReviews.size() : 0) +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof Homeowner homeowner)) return false;
+
+        return Objects.equals(getEmail(), homeowner.getEmail());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getEmail());
+    }
+
 }
