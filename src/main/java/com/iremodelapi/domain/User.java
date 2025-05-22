@@ -147,37 +147,45 @@ public class User
         this.updatedAt = updatedAt;
     }
 
-    public List<Message> getSentMessages() {
+    public List<Message> getSentMessages()
+    {
         return sentMessages;
     }
 
-    public void setSentMessages(List<Message> sentMessages) {
+    public void setSentMessages(List<Message> sentMessages)
+    {
         this.sentMessages = sentMessages;
     }
 
-    public List<Message> getReceivedMessages() {
+    public List<Message> getReceivedMessages()
+    {
         return receivedMessages;
     }
 
-    public void setReceivedMessages(List<Message> receivedMessages) {
+    public void setReceivedMessages(List<Message> receivedMessages)
+    {
         this.receivedMessages = receivedMessages;
     }
 
-    public List<Notification> getNotifications() {
+    public List<Notification> getNotifications()
+    {
         return notifications;
     }
 
-    public void setNotifications(List<Notification> notifications) {
+    public void setNotifications(List<Notification> notifications)
+    {
         this.notifications = notifications;
     }
 
     // Helper methods for relationship management
-    public void addNotification(Notification notification) {
+    public void addNotification(Notification notification)
+    {
         notifications.add(notification);
         notification.setUser(this);
     }
 
-    public void removeNotification(Notification notification) {
+    public void removeNotification(Notification notification)
+    {
         notifications.remove(notification);
         notification.setUser(null);
     }
