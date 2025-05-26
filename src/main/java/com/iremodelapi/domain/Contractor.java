@@ -99,10 +99,10 @@ public class Contractor extends User
         super();
     }
 
-    public Contractor(String email, String password, String fullName, String phoneNumber, String companyName,
+    public Contractor(String email, String password, String firstName, String lastName, String phoneNumber, String companyName,
                       String description, String address, String licenseNumber, boolean insured)
     {
-        super(email, password, fullName, phoneNumber, UserRole.CONTRACTOR);
+        super(email, password, firstName, lastName, phoneNumber, UserRole.CONTRACTOR);
         this.companyName = companyName;
         this.description = description;
         this.address = address;

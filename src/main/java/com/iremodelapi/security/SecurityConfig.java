@@ -22,24 +22,27 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public class SecurityConfig
+{
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, UserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, UserDetailsService userDetailsService)
+    {
         this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
     }
 
     @Bean
     @Profile("dev") // Only apply this in development profile
-    public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception
+    {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
+                        .requestMatchers("/auth/**", "/public/**").permitAll()  // Remove /api prefix
                         // Special config for H2 console in dev environment
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                         .anyRequest().authenticated()
@@ -50,7 +53,8 @@ public class SecurityConfig {
                 )
 
                 // H2 console requires frame access - configure differently in modern Spring Security
-                .headers(headers -> headers.contentSecurityPolicy(csp ->
+                .headers(headers -> headers.contentSecurityPolicy
+                        (csp ->
                         // This CSP allows frames from same origin (needed by H2 console)
                         csp.policyDirectives("frame-ancestors 'self'")
                 ))
@@ -62,12 +66,13 @@ public class SecurityConfig {
 
     @Bean
     @Profile("!dev") // Apply to all profiles except dev
-    public SecurityFilterChain productionSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain productionSecurityFilterChain(HttpSecurity http) throws Exception
+    {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
+                        .requestMatchers("/auth/**", "/public/**").permitAll()  // Remove /api prefix
                         .anyRequest().authenticated()
                 )
 
@@ -81,7 +86,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider()
+    {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -89,12 +95,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
+    {
         return config.getAuthenticationManager();
     }
 }

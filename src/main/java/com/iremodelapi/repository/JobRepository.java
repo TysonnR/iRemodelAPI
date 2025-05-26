@@ -20,7 +20,10 @@ public interface JobRepository extends JpaRepository<Job, Long>
     List<Job> findByCategory(Job.JobCategory category);
 
     // Find jobs by homeowner
-    List<Job> findByHomeowner(Homeowner homeowner);
+    List<Job> findByHomeownerId(Long homeownerId);
+
+    List<Job> findByAssignedContractorId(Long contractorId);
+
 
 }
 

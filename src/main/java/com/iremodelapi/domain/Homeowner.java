@@ -39,10 +39,10 @@ public class Homeowner extends User
         // Default constructor
     }
 
-    public Homeowner(String email, String password, String fullName, String phoneNumber,
+    public Homeowner(String email, String password, String firstName, String lastName, String phoneNumber,
                      String preferredContactMethod, String mailingAddress)
     {
-        super(email, password, fullName, phoneNumber, UserRole.HOMEOWNER);
+        super(email, password, firstName, lastName, phoneNumber, UserRole.HOMEOWNER);
         this.preferredContactMethod = preferredContactMethod;
         this.mailingAddress = mailingAddress;
     }
@@ -140,12 +140,14 @@ public class Homeowner extends User
         return "Homeowner{" +
                 "id=" + getId() +
                 ", email='" + getEmail() + '\'' +
-                ", fullName='" + getFullName() + '\'' +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
                 ", preferredContactMethod='" + preferredContactMethod + '\'' +
                 ", mailingAddress='" + mailingAddress + '\'' +
                 ", propertyAddresses=" + propertyAddresses +
-                ", postedJobs=" + (postedJobs != null ? postedJobs.size() : 0) +
-                ", writtenReviews=" + (writtenReviews != null ? writtenReviews.size() : 0) +
+                ", postedJobs=" + postedJobs.size() +
+                ", writtenReviews=" + writtenReviews.size() +
                 '}';
     }
 

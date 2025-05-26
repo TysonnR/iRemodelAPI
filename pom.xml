@@ -8,13 +8,14 @@
         <version>3.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.tysonsproj</groupId>
+    <groupId>com.iremodelapi</groupId>
     <artifactId>iRemodelAPI</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>iRemodelAPI</name>
     <description>iRemodelAPI</description>
     <properties>
         <java.version>24</java.version>
+        <start-class>com.iremodelapi.IRemodelApiApplication</start-class>
     </properties>
     <dependencies>
         <!-- Spring Boot Starters -->

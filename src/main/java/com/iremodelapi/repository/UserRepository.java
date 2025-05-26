@@ -46,6 +46,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param name The name pattern to search for
      * @return A list of users matching the name pattern
      */
-    @Query("SELECT u FROM User u WHERE LOWER(u.fullName) LIKE LOWER(CONCAT('%', :name, '%'))")
+    @Query("SELECT u FROM User u WHERE LOWER(CONCAT(u.firstName, ' ', u.lastName)) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<User> findByNameContainingIgnoreCase(String name);
 }

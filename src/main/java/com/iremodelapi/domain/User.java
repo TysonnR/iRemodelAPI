@@ -28,7 +28,10 @@ public class User
     private String password;
 
     @Column(nullable = false)
-    private String fullName;
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = false)
     private String phoneNumber;
@@ -37,6 +40,10 @@ public class User
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
+
+    // ZIP code for user's location (optional, supports both 5-digit and ZIP+4 formats)
+    @Column(name = "zip_code", length = 10)
+    private String zipCode;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -49,12 +56,14 @@ public class User
         // Default constructor
     }
 
-    public User(String email, String password, String fullName, String phoneNumber, UserRole role) {
+    public User(String email, String password, String firstName, String lastName, String phoneNumber, UserRole role) {
         this.email = email;
         this.password = password;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.role = role;
+
     }
 
     // Getters and Setters for each attribute
@@ -88,14 +97,24 @@ public class User
         this.password = password;
     }
 
-    public String getFullName()
+    public String getFirstName()
     {
-        return fullName;
+        return firstName;
     }
 
-    public void setFullName(String fullName)
+    public void setFirstName(String firstName)
     {
-        this.fullName = fullName;
+        this.firstName = firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
     }
 
     public String getPhoneNumber()
@@ -116,6 +135,16 @@ public class User
     public void setRole(UserRole role)
     {
         this.role = role;
+    }
+
+    public String getZipCode()
+    {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode)
+    {
+        this.zipCode = zipCode;
     }
 
     public LocalDateTime getCreatedAt()
@@ -155,8 +184,17 @@ public class User
     @Override
     public String toString()
     {
-        return "User{" + "id=" + id + ", email='" + email + '\'' + ", fullName='" + fullName + '\'' +
-                ", role=" + role + '}';
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", role=" + role +
+                ", zipCode='" + zipCode + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 
     @Override
