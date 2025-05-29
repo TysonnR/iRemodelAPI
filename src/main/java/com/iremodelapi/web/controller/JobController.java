@@ -1,6 +1,7 @@
 package com.iremodelapi.web.controller;
 
 import com.iremodelapi.domain.Job;
+import com.iremodelapi.web.dto.JobResponseDTO;
 import com.iremodelapi.service.JobService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,16 +43,17 @@ public class JobController
     public JobController(JobService jobService) {
         this.jobService = jobService;
     }
+
     /**
      * Retrieves all jobs in the system.
      *
      * HTTP ENDPOINT: GET /api/jobs
      * RESPONSE: JSON array of all job objects
-     * @return List of all job entities
+     * @return List of all job DTOs
      */
     @GetMapping
-    public List<Job> getAllJobs() {
-        return jobService.getAllJobs();
+    public List<JobResponseDTO> getAllJobs() {
+        return toJobResponseDTOs(jobService.getAllJobs());
     }
 
     /**
@@ -62,11 +64,11 @@ public class JobController
      * RESPONSE: JSON object of the requested job
      *
      * @param jobId The unique identifier of the job to retrieve
-     * @return Job entity with the specified ID
+     * @return Job DTO with the specified ID
      */
     @GetMapping("/{jobId}")
-    public Job getJobById(@PathVariable Long jobId) {
-        return jobService.findJobById(jobId);
+    public JobResponseDTO getJobById(@PathVariable Long jobId) {
+        return toJobResponseDTO(jobService.findJobById(jobId));
     }
 
     /**
@@ -77,11 +79,11 @@ public class JobController
      * RESPONSE: JSON array of jobs in the specified location
      *
      * @param zipCode The zip code to search for jobs in
-     * @return List of jobs located in the specified zip code area
+     * @return List of job DTOs located in the specified zip code area
      */
     @GetMapping("/search")
-    public List<Job> searchJobsByZipCode(@RequestParam String zipCode) {
-        return jobService.findJobsByZipCode(zipCode);
+    public List<JobResponseDTO> searchJobsByZipCode(@RequestParam String zipCode) {
+        return toJobResponseDTOs(jobService.findJobsByZipCode(zipCode));
     }
 
     /**
@@ -92,11 +94,11 @@ public class JobController
      * RESPONSE: JSON object of the created job with generated ID
      *
      * @param job Job entity containing the details for the new job
-     * @return Created job entity with generated ID and default values
+     * @return Created job DTO with generated ID and default values
      */
     @PostMapping
-    public Job createJob(@RequestBody Job job) {
-        return jobService.createJob(job);
+    public JobResponseDTO createJob(@RequestBody Job job) {
+        return toJobResponseDTO(jobService.createJob(job));
     }
 
     /**
@@ -107,11 +109,11 @@ public class JobController
      * RESPONSE: JSON object of the updated job with COMPLETED status
      *
      * @param jobId The unique identifier of the job to mark as completed
-     * @return Updated job entity with COMPLETED status
+     * @return Updated job DTO with COMPLETED status
      */
     @PutMapping("/{jobId}/complete")
-    public Job completeJob(@PathVariable Long jobId) {
-        return jobService.completeJob(jobId);
+    public JobResponseDTO completeJob(@PathVariable Long jobId) {
+        return toJobResponseDTO(jobService.completeJob(jobId));
     }
 
     /**
@@ -125,12 +127,19 @@ public class JobController
 
      * @param jobId The unique identifier of the job
      * @param contractorId The unique identifier of the contractor to assign
-     * @return Updated job entity with assigned contractor and IN_PROGRESS status
+     * @return Updated job DTO with assigned contractor and IN_PROGRESS status
      */
     @PutMapping("/{jobId}/assign/{contractorId}")
-    public Job assignContractorToJob(@PathVariable Long jobId, @PathVariable Long contractorId)
+    public JobResponseDTO assignContractorToJob(@PathVariable Long jobId, @PathVariable Long contractorId)
     {
-        return jobService.assignContractorToJob(jobId, contractorId);
+        return toJobResponseDTO(jobService.assignContractorToJob(jobId, contractorId));
     }
 
+    private JobResponseDTO toJobResponseDTO(Job job) {
+        return JobResponseDTO.fromJob(job);
+    }
+
+    private List<JobResponseDTO> toJobResponseDTOs(List<Job> jobs) {
+        return jobs.stream().map(JobResponseDTO::fromJob).toList();
+    }
 }

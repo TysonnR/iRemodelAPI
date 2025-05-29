@@ -122,7 +122,7 @@ public class MatchService
         int pivot = list.get(high).getMatchScore();
         int i = low - 1;
 
-        for (int j = low; j <= high; j++)
+        for (int j = low; j < high; j++)
         {
             // If current element's score is >= pivot (descending order)
             if (list.get(j).getMatchScore() >= pivot)
@@ -192,7 +192,8 @@ public class MatchService
                 contractor.getCompanyName(),
                 contractor.getPrimarySpecialty().name(),
                 contractor.getZipCode(),
-                contractor.getRating(),
+                //stops return value error by setting to 0.0
+                contractor.getRating() != null ? contractor.getRating() : 0.0,
                 score,
                 reasons
         );

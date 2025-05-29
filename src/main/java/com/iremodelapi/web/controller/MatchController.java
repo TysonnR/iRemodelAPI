@@ -2,6 +2,7 @@ package com.iremodelapi.web.controller;
 
 import com.iremodelapi.service.MatchService;
 import com.iremodelapi.web.dto.ContractorMatchDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,6 +72,7 @@ public class MatchController
      * @return ResponseEntity containing list of contractor matches or error response
      */
     @GetMapping("/{jobId}/matches")
+    @Transactional
     public ResponseEntity<List<ContractorMatchDTO>> getMatchesForJob(@PathVariable Long jobId)
     {
         try
