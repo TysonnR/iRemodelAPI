@@ -67,7 +67,8 @@ async function searchContractors() {
     resultsContainer.classList.add('active');
     resultsTitle.textContent = 'Finding Perfect Matches...';
     resultsSubtitle.textContent = `Searching for ${selectedJobType.toLowerCase()} contractors in ${zipCode}`;
-    resultsContent.innerHTML = '<div class="loading">Analyzing contractors with our intelligent matching algorithm...</div>';
+    resultsContent.innerHTML = '<div class="loading">Analyzing contractors with our intelligent matching algorithm...' +
+        '' + '</div>';
 
     // Scroll to results
     resultsContainer.scrollIntoView({ behavior: 'smooth' });

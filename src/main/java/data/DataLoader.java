@@ -1,4 +1,4 @@
-package com.iremodelapi.data;
+package data;
 
 import com.iremodelapi.domain.*;
 import com.iremodelapi.repository.*;
@@ -36,18 +36,20 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws Exception
+    {
         // Only load data if database is empty
         if (userRepository.count() == 0) {
-            System.out.println("🚀 Loading demo data for presentation...");
+            System.out.println("Loading demo data for presentation...");
             loadDemoData();
-            System.out.println("✅ Demo data loaded successfully!");
+            System.out.println("Demo data loaded successfully!");
         } else {
-            System.out.println("📊 Demo data already exists, skipping data load.");
+            System.out.println("Demo data already exists, skipping data load.");
         }
     }
 
-    private void loadDemoData() {
+    private void loadDemoData()
+    {
         // Create Homeowners
         List<Homeowner> homeowners = createHomeowners();
 
@@ -64,7 +66,8 @@ public class DataLoader implements CommandLineRunner {
         updateContractorRatings(contractors);
     }
 
-    private List<Homeowner> createHomeowners() {
+    private List<Homeowner> createHomeowners()
+    {
         System.out.println("Creating homeowners...");
 
         Homeowner homeowner1 = new Homeowner();
@@ -109,7 +112,8 @@ public class DataLoader implements CommandLineRunner {
         return homeownerRepository.saveAll(Arrays.asList(homeowner1, homeowner2, homeowner3));
     }
 
-    private List<Contractor> createContractors() {
+    private List<Contractor> createContractors()
+    {
         System.out.println("Creating contractors...");
 
         // Kitchen Specialist
@@ -236,7 +240,8 @@ public class DataLoader implements CommandLineRunner {
                 contractor1, contractor2, contractor3, contractor4, contractor5, contractor6));
     }
 
-    private List<Job> createJobs(List<Homeowner> homeowners) {
+    private List<Job> createJobs(List<Homeowner> homeowners)
+    {
         System.out.println("Creating jobs...");
 
         // Kitchen Remodel Job (should match Kitchen Pros LLC perfectly)
@@ -314,7 +319,8 @@ public class DataLoader implements CommandLineRunner {
         return jobRepository.saveAll(Arrays.asList(job1, job2, job3, job4, job5, job6));
     }
 
-    private void createReviews(List<Homeowner> homeowners, List<Contractor> contractors, List<Job> jobs) {
+    private void createReviews(List<Homeowner> homeowners, List<Contractor> contractors, List<Job> jobs)
+    {
         System.out.println("Creating reviews...");
 
         // Create some sample reviews to establish contractor ratings
@@ -345,7 +351,8 @@ public class DataLoader implements CommandLineRunner {
         reviewRepository.saveAll(Arrays.asList(review1, review2, review3));
     }
 
-    private void updateContractorRatings(List<Contractor> contractors) {
+    private void updateContractorRatings(List<Contractor> contractors)
+    {
         System.out.println("Updating contractor ratings...");
 
         // In a real application, you might calculate these based on actual reviews
