@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRemodel</title>
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>🏠 iRemodel</h1>
+                <p>Connect with Top-Rated Contractors in Your Area</p>
+                <div class="header-icons">
+                    <span class="header-icon">🔨</span>
+                    <span class="header-icon">🏗️</span>
+                    <span class="header-icon">⚡</span>
+                    <span class="header-icon">🎨</span>
+                    <span class="header-icon">🔧</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <h2 class="section-title">
+                🔨 What kind of project do you need help with?
+            </h2>
+
+            <div class="job-types-grid" id="jobTypesGrid">
+                <div class="job-type-card" data-category="REMODELING">
+                    <span class="job-icon">🍳</span>
+                    <div class="job-name">Kitchen Remodel</div>
+                </div>
+                <div class="job-type-card" data-category="PLUMBING">
+                    <span class="job-icon">🚿</span>
+                    <div class="job-name">Bathroom</div>
+                </div>
+                <div class="job-type-card" data-category="ROOFING">
+                    <span class="job-icon">🏠</span>
+                    <div class="job-name">Roofing</div>
+                </div>
+                <div class="job-type-card" data-category="FLOORING">
+                    <span class="job-icon">🪵</span>
+                    <div class="job-name">Flooring</div>
+                </div>
+                <div class="job-type-card" data-category="ELECTRICAL">
+                    <span class="job-icon">⚡</span>
+                    <div class="job-name">Electrical</div>
+                </div>
+                <div class="job-type-card" data-category="PAINTING">
+                    <span class="job-icon">🎨</span>
+                    <div class="job-name">Painting</div>
+                </div>
+                <div class="job-type-card" data-category="HVAC">
+                    <span class="job-icon">❄️</span>
+                    <div class="job-name">HVAC</div>
+                </div>
+                <div class="job-type-card" data-category="LANDSCAPING">
+                    <span class="job-icon">🌿</span>
+                    <div class="job-name">Landscaping</div>
+                </div>
+                <div class="job-type-card" data-category="CARPENTRY">
+                    <span class="job-icon">🔨</span>
+                    <div class="job-name">Carpentry</div>
+                </div>
+                <div class="job-type-card" data-category="MASONRY">
+                    <span class="job-icon">🧱</span>
+                    <div class="job-name">Masonry</div>
+                </div>
+                <div class="job-type-card" data-category="CONCRETE">
+                    <span class="job-icon">🏗️</span>
+                    <div class="job-name">Concrete</div>
+                </div>
+                <div class="job-type-card" data-category="GENERAL">
+                    <span class="job-icon">🔧</span>
+                    <div class="job-name">General</div>
+                </div>
+            </div>
+
+            <div class="location-search">
+                <div class="location-input-group">
+                    <input type="text" class="location-input" id="zipCodeInput"
+                           placeholder="Enter your ZIP code (e.g., 12345)" maxlength="5">
+                    <button class="search-button" id="searchButton" disabled>
+                        🔍 Find Contractors
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="results-header">
+                <div class="results-title" id="resultsTitle">Finding Perfect Matches...</div>
+                <div class="results-subtitle" id="resultsSubtitle"></div>
+            </div>
+            <div id="resultsContent">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+
+        <div class="platform-info">
+            <h3>🌟 Why Choose iRemodel?</h3>
+            <p>We connect homeowners with verified, professional contractors to make your home improvement projects successful and stress-free.</p>
+            <div class="benefits-breakdown">
+                <div class="benefit-item">
+                    <span class="benefit-icon">✅</span>
+                    <div class="benefit-title">Verified Contractors</div>
+                    <div>Licensed & Insured</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">⭐</span>
+                    <div class="benefit-title">Quality Matches</div>
+                    <div>Perfect for Your Project</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">📍</span>
+                    <div class="benefit-title">Local Experts</div>
+                    <div>In Your Area</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">💬</span>
+                    <div class="benefit-title">Real Reviews</div>
+                    <div>From Actual Customers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

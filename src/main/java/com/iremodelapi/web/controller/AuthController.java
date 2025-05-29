@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController
+{
 
     private final UserService userService;
     private final JwtService jwtService;
@@ -31,7 +32,8 @@ public class AuthController {
 
     public AuthController(UserService userService, JwtService jwtService,
                           AuthenticationManager authenticationManager,
-                          UserDetailsService userDetailsService) {
+                          UserDetailsService userDetailsService)
+    {
         this.userService = userService;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
@@ -39,7 +41,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDTO> register(@RequestBody @Valid RegisterDTO registerDTO) {
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody @Valid RegisterDTO registerDTO)
+    {
         try {
             // Register the user (creates Contractor or Homeowner)
             User user = userService.registerUser(registerDTO);
@@ -58,7 +61,9 @@ public class AuthController {
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e)
+        {
             return ResponseEntity.badRequest().body(
                     new AuthResponseDTO(null, null, "ERROR: " + e.getMessage())
             );
@@ -66,7 +71,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO)
+    {
         try {
             // Authenticate the user credentials
             Authentication authentication = authenticationManager.authenticate(
@@ -90,9 +96,11 @@ public class AuthController {
 
             return ResponseEntity.ok(response);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    new AuthResponseDTO(null, null, "ERROR: Authentication failed")
+                    new AuthResponseDTO(null, null, "ERROR! Authentication failed")
             );
         }
     }

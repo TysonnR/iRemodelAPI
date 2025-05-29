@@ -36,50 +36,39 @@ public class SecurityConfig
 
     @Bean
     @Profile("dev") // Only apply this in development profile
-    public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/public/**").permitAll()  // Remove /api prefix
-                        // Special config for H2 console in dev environment
+                        .requestMatchers("/auth/**", "/public/**", "/error",
+                                "/", "*.html", "*.css", "*.js", "/static/**").permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                         .anyRequest().authenticated()
                 )
-
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-
-                // H2 console requires frame access - configure differently in modern Spring Security
-                .headers(headers -> headers.contentSecurityPolicy
-                        (csp ->
-                        // This CSP allows frames from same origin (needed by H2 console)
+                .headers(headers -> headers.contentSecurityPolicy(csp ->
                         csp.policyDirectives("frame-ancestors 'self'")
                 ))
-
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     @Bean
-    @Profile("!dev") // Apply to all profiles except dev
-    public SecurityFilterChain productionSecurityFilterChain(HttpSecurity http) throws Exception
-    {
+    @Profile("!dev")
+    public SecurityFilterChain productionSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/public/**").permitAll()  // Remove /api prefix
+                        .requestMatchers("/auth/**", "/public/**", "/error",
+                                "/", "*.html", "*.css", "*.js", "/static/**").permitAll()
                         .anyRequest().authenticated()
                 )
-
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

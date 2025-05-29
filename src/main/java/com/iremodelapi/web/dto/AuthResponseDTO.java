@@ -50,4 +50,15 @@ public class AuthResponseDTO
     {
         this.role = role;
     }
+
+    @Override
+    public String toString()
+    {
+        return "AuthResponseDTO{" +
+                "token='" + token + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
 }

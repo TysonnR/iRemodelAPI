@@ -147,6 +147,7 @@ public class Review
                 ", contractor=" + (contractor != null ? contractor.getId() : null) +
                 '}';
     }
+
     @PrePersist
     protected void onCreate()
     {

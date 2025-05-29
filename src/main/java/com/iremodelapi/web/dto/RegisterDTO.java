@@ -154,5 +154,19 @@ public class RegisterDTO
         this.primarySpecialty = primarySpecialty;
     }
 
+    @Override
+    public String toString()
+    {
+        return "RegisterDTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", primarySpecialty='" + primarySpecialty + '\'' +
+                '}';
+    }
 
 }

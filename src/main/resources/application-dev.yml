@@ -17,16 +17,17 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop  # Recreates DB on each restart - good for dev
     show-sql: true
 
 # Enhanced logging for development
 logging:
   level:
     root: INFO
-    org.tysonsproj.iremodelapi: DEBUG
+    com.iremodelapi: DEBUG  # Fixed package name
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE  # Updated for Hibernate 6.x
+    org.springframework.security: DEBUG  # Helpful for JWT debugging
 
 # Development error configuration
 server:
@@ -35,7 +36,7 @@ server:
     include-binding-errors: always
     include-stacktrace: on_param
 
-# JWT Configuration for development
+# JWT Configuration for development (longer secret for security)
 jwt:
-  secret: ${JWT_SECRET:dev_only_secret_key_replace_in_production_minimum_32_chars}
+  secret: ${JWT_SECRET:development_secret_key_minimum_32_characters_long_for_hmac_sha256}
   expiration: ${JWT_EXPIRATION:86400000}
